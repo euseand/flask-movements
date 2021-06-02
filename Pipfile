@@ -8,6 +8,10 @@ flask-restx = "*"
 flask-sqlalchemy = "*"
 flask-marshmallow = "*"
 marshmallow-sqlalchemy = "*"
+flask-login = "*"
+python-dotenv = "*"
+flask-migrate = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
