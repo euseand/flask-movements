@@ -14,7 +14,7 @@ class MoneyMovementService:
 
     @staticmethod
     def get_by_id(movement_id):
-        movement = MoneyMovementModel.filter_by(movement_id=movement_id).first()
+        movement = MoneyMovementModel.query.filter_by(movement_id=movement_id).first()
         if movement:
             return movement
         else:
@@ -29,7 +29,7 @@ class MoneyMovementService:
 
     @staticmethod
     def update(movement_id, data):
-        movement = MoneyMovementModel.query.filter(movement_id=movement_id).first()
+        movement = MoneyMovementModel.query.filter_by(movement_id=movement_id).first()
         if movement:
             movement.update(data)
             db.session.commit()
@@ -39,7 +39,7 @@ class MoneyMovementService:
 
     @staticmethod
     def delete(movement_id):
-        movement = MoneyMovementModel.query.filter(movement_id=movement_id).first()
+        movement = MoneyMovementModel.query.filter_by(movement_id=movement_id).first()
         if movement:
             db.session.delete(movement)
             db.session.commit()
