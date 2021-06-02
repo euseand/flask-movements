@@ -4,4 +4,4 @@ export FLASK_DEBUG=1
 
 flask db init
 flask db migrate
-flask flask db upgrade
+flask db upgrade
