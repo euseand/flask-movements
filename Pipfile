@@ -12,6 +12,7 @@ python-dotenv = "*"
 flask-migrate = "*"
 psycopg2-binary = "*"
 flask-smorest = "*"
+sqlalchemy-utils = "*"
 
 [dev-packages]
 
