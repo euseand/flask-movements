@@ -1,0 +1,2 @@
+class MovementObjectNotFound(Exception):
+    pass
