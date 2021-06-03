@@ -1,5 +1,5 @@
 from flask import Flask
-from flask_restx import Api
+from flask_smorest import Api
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 
@@ -16,7 +16,7 @@ def create_app(config_file_name):
     migrate = Migrate(app, db)
 
     with app.app_context():
-        from app.views.movement import movement_ns
-        api.add_namespace(movement_ns)
+        from app.views.movement import movement_blp
+        api.register_blueprint(movement_blp)
 
         return app
