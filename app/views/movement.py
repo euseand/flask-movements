@@ -6,15 +6,15 @@ from app.services.movement import MoneyMovementService
 from app.exceptions import MovementObjectNotFound
 
 
-movement_blp = Blueprint('movement', 'Money movement operations')
+blp = Blueprint('movement', __name__, url_prefix='/movement', description='Money movements operations')
 movement_dao = MoneyMovementService()
 
 
-@movement_blp.route('/movement/')
+@blp.route('/')
 class MovementList(MethodView):
 
     @staticmethod
-    @movement_blp.response(200, MoneyMovementSchema(many=True))
+    @blp.response(200, MoneyMovementSchema(many=True))
     def get():
         """Get movements
 
@@ -24,8 +24,8 @@ class MovementList(MethodView):
         return movements
 
     @staticmethod
-    @movement_blp.arguments(MoneyMovementSchema)
-    @movement_blp.response(201, MoneyMovementSchema)
+    @blp.arguments(MoneyMovementSchema)
+    @blp.response(201, MoneyMovementSchema)
     def post(movement_data):
         """Post movement
 
@@ -35,11 +35,11 @@ class MovementList(MethodView):
         return movement
 
 
-@movement_blp.route('/movement/<movement_id>')
+@blp.route('/<int:movement_id>')
 class Movement(MethodView):
 
     @staticmethod
-    @movement_blp.response(200, MoneyMovementSchema)
+    @blp.response(200, MoneyMovementSchema)
     def get(movement_id):
         """Get movement
 
@@ -52,8 +52,8 @@ class Movement(MethodView):
         return movement
 
     @staticmethod
-    @movement_blp.arguments(MoneyMovementSchema)
-    @movement_blp.response(200, MoneyMovementSchema)
+    @blp.arguments(MoneyMovementSchema)
+    @blp.response(200, MoneyMovementSchema)
     def put(movement_id, movement_data):
         """Put movement
 
@@ -67,7 +67,7 @@ class Movement(MethodView):
         return movement
 
     @staticmethod
-    @movement_blp.response(204)
+    @blp.response(200)
     def delete(movement_id):
         """Delete movement
 
