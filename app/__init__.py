@@ -16,7 +16,8 @@ def create_app(config_file_name):
     migrate = Migrate(app, db)
 
     with app.app_context():
-        from app.views.movement import blp
-        api.register_blueprint(blp)
+        from app.views.movement import movement_blp, movements_blp
+        api.register_blueprint(movement_blp)
+        api.register_blueprint(movements_blp)
 
         return app
