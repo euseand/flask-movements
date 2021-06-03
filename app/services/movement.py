@@ -1,5 +1,6 @@
 from app import db
 from app.models.movement import MoneyMovementModel
+from app.exceptions import MovementObjectNotFound
 
 
 class MoneyMovementService:
@@ -7,10 +8,7 @@ class MoneyMovementService:
     @staticmethod
     def get_all():
         movement_list = MoneyMovementModel.query.all()
-        if movement_list:
-            return movement_list
-        else:
-            raise Exception
+        return movement_list
 
     @staticmethod
     def get_by_id(movement_id):
@@ -18,7 +16,7 @@ class MoneyMovementService:
         if movement:
             return movement
         else:
-            raise Exception
+            raise MovementObjectNotFound
 
     @staticmethod
     def create(data):
@@ -33,9 +31,8 @@ class MoneyMovementService:
         if movement:
             movement.update(data)
             db.session.commit()
-            return movement
         else:
-            raise Exception
+            raise MovementObjectNotFound
 
     @staticmethod
     def delete(movement_id):
@@ -43,3 +40,5 @@ class MoneyMovementService:
         if movement:
             db.session.delete(movement)
             db.session.commit()
+        else:
+            raise MovementObjectNotFound
