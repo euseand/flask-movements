@@ -1,9 +1,12 @@
-from flask.views import MethodView
-from flask_smorest import Blueprint, abort
+from pprint import pprint
 
-from app.schemas.movement import MoneyMovementSchema
+from flask import jsonify
+from flask.views import MethodView
+from flask_smorest import abort, Blueprint
+
+from app.schemas.movement import MoneyMovementInputSchema, MoneyMovementOutputSchema, SingleResponseSchema, ListResponseSchema
 from app.services.movement import MoneyMovementService
-from app.exceptions import MovementObjectNotFound
+from app.exceptions.movement import MovementObjectNotFound
 
 
 blp = Blueprint('movement', __name__, url_prefix='/movement', description='Money movements operations')
@@ -14,32 +17,35 @@ movement_dao = MoneyMovementService()
 class MovementList(MethodView):
 
     @staticmethod
-    @blp.response(200, MoneyMovementSchema(many=True))
+    @blp.response(200, ListResponseSchema())
     def get():
         """Get movements
 
         Return all money movements objects.
         """
         movements = movement_dao.get_all()
-        return movements
+        result = MoneyMovementOutputSchema(many=True).dump(movements, many=True)
+        pprint(result)
+        return {'type': 'success', 'data': result}
 
     @staticmethod
-    @blp.arguments(MoneyMovementSchema)
-    @blp.response(201, MoneyMovementSchema)
+    @blp.arguments(MoneyMovementInputSchema)
+    @blp.response(201, SingleResponseSchema)
     def post(movement_data):
         """Post movement
 
         Add a new money movement object.
         """
         movement = movement_dao.create(movement_data)
-        return movement
+        result = MoneyMovementOutputSchema().dump(movement)
+        return {'type': 'success', 'data': result}
 
 
-@blp.route('/<int:movement_id>')
+@blp.route('/<movement_id>')
 class Movement(MethodView):
 
     @staticmethod
-    @blp.response(200, MoneyMovementSchema)
+    @blp.response(200, SingleResponseSchema)
     def get(movement_id):
         """Get movement
 
@@ -49,11 +55,12 @@ class Movement(MethodView):
             movement = movement_dao.get_by_id(movement_id)
         except MovementObjectNotFound:
             abort(404, message='Movement not found.')
-        return movement
+        result = MoneyMovementOutputSchema().dump(movement)
+        return {'type': 'success', 'data': result}
 
     @staticmethod
-    @blp.arguments(MoneyMovementSchema)
-    @blp.response(200, MoneyMovementSchema)
+    @blp.arguments(MoneyMovementInputSchema)
+    @blp.response(200, SingleResponseSchema)
     def put(movement_id, movement_data):
         """Put movement
 
@@ -64,7 +71,8 @@ class Movement(MethodView):
         except MovementObjectNotFound:
             abort(404, message='Movement not found.')
         movement_dao.update(movement_id, movement_data)
-        return movement
+        result = MoneyMovementOutputSchema().dump(movement)
+        return {'type': 'success', 'data': result}
 
     @staticmethod
     @blp.response(200)
