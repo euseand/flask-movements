@@ -2,8 +2,8 @@ from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
-from app.users.schema import UserSchema, UserSingleOutputSchema, UserListOutputSchema
-from app.users.service import UserService
+from app.users.schemas import UserSchema, UserSingleOutputSchema, UserListOutputSchema
+from app.users.services import UserService
 from app.users.exceptions import UserObjectNotFound
 
 user_blp = Blueprint('user', __name__, url_prefix='/users',

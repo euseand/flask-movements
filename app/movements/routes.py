@@ -2,9 +2,9 @@ from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
-from app.movements.schema import MoneyMovementSchema
-from app.movements.schema import MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
-from app.movements.service import MoneyMovementsService
+from app.movements.schemas import MoneyMovementSchema
+from app.movements.schemas import MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
+from app.movements.services import MoneyMovementsService
 from app.movements.exceptions import MovementObjectNotFound
 
 movement_blp = Blueprint('movement', __name__, url_prefix='/movements',

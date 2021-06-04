@@ -1,4 +1,4 @@
-from app.movements.model import db, MoneyMovementModel
+from app.movements.models import db, MoneyMovementModel
 from app.movements.exceptions import MovementObjectNotFound
 
 

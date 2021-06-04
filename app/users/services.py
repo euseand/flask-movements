@@ -1,4 +1,4 @@
-from app.users.model import db, UserModel
+from app.users.models import db, UserModel
 from app.users.exceptions import UserObjectNotFound
 
 
