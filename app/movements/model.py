@@ -3,7 +3,7 @@ import datetime
 
 from sqlalchemy.dialects.postgresql import UUID
 
-from app import db
+from app.common import db
 
 
 class MoneyMovementModel(db.Model):

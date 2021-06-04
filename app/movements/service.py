@@ -1,6 +1,5 @@
-from app import db
-from app.models.movements import MoneyMovementModel
-from app.exceptions.movements import MovementObjectNotFound
+from app.movements.model import db, MoneyMovementModel
+from app.movements.exceptions import MovementObjectNotFound
 
 
 class MoneyMovementsService:

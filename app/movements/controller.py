@@ -2,10 +2,10 @@ from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
-from app.schemas.movements import MoneyMovementSchema, SingleOutputSchema, ListOutputSchema
-from app.services.movements import MoneyMovementsService
-from app.exceptions.movements import MovementObjectNotFound
-
+from app.movements.schema import MoneyMovementSchema
+from app.movements.schema import MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
+from app.movements.service import MoneyMovementsService
+from app.movements.exceptions import MovementObjectNotFound
 
 movement_blp = Blueprint('movement', __name__, url_prefix='/movements',
                          description='All operations for a single money movement object')
@@ -22,7 +22,7 @@ movements_schema = MoneyMovementSchema(many=True)
 class Movement(MethodView):
     """Api view class for single Money Movement object operations"""
     @staticmethod
-    @movement_blp.response(200, SingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def get(movement_id):
         """Read a single movement
 
@@ -37,7 +37,7 @@ class Movement(MethodView):
 
     @staticmethod
     @movement_blp.arguments(MoneyMovementSchema)
-    @movement_blp.response(200, SingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def put(movement_id, movement_data):
         """Update an exissting movement
 
@@ -59,7 +59,7 @@ class Movement(MethodView):
         Delete money movement object.
         """
         try:
-            movement = movement_dao.get_by_id(movement_id)            
+            movement = movement_dao.get_by_id(movement_id)
             movement_dao.delete(movement_id)
             return {'message': 'Movement deleted successfully'}, 200
         except MovementObjectNotFound:
@@ -70,7 +70,7 @@ class Movement(MethodView):
 class MovementsList(MethodView):
     """Api view class for a list of Money Movement objects operations"""
     @staticmethod
-    @movements_blp.response(200, ListOutputSchema)
+    @movements_blp.response(200, MoneyMovementListOutputSchema)
     def get():
         """Read all movements
 
@@ -82,7 +82,7 @@ class MovementsList(MethodView):
 
     @staticmethod
     @movements_blp.arguments(MoneyMovementSchema)
-    @movements_blp.response(201, SingleOutputSchema)
+    @movements_blp.response(201, MoneyMovementSingleOutputSchema)
     def post(movement_data):
         """Create a new movement
 
