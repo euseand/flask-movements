@@ -2,7 +2,7 @@ from marshmallow import fields, Schema
 
 
 class MoneyMovementSchema(Schema):
-
+    """Money Movement schema class made for serializing/deserializing database model"""
     movement_id = fields.UUID(data_key='movementId', dump_only=True)
     modified_date = fields.Date(data_key='modifiedDate', dump_only=True)
     amount = fields.String(data_key='amount', required=True)
@@ -15,7 +15,7 @@ class MoneyMovementSchema(Schema):
 
 
 class SingleOutputSchema(Schema):
-
+    """Single Money Movement object output class made for enveloping response"""
     movement = fields.Nested(MoneyMovementSchema)
 
     class Meta:
@@ -23,7 +23,7 @@ class SingleOutputSchema(Schema):
 
 
 class ListOutputSchema(Schema):
-
+    """List of Money Movement objects class made for enveloping response"""
     movements = fields.List(fields.Nested(MoneyMovementSchema))
 
     class Meta:

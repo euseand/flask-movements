@@ -1,11 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "4e79b7e3732ef41daff6f555fcb6b1ae2f7f5f77aac15e90fa83a8f047123080"
+            "sha256": "41578c7defbdbdb422aab97b8b26f54a5fb87c3b3c5ab090f23e71f66f2c45a7"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_version": "3.8"
+            "python_version": "3.9"
         },
         "sources": [
             {
@@ -47,22 +47,6 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==2.0.1"
-        },
-        "flask-login": {
-            "hashes": [
-                "sha256:6d33aef15b5bcead780acc339464aae8a6e28f13c90d8b1cf9de8b549d1c0b4b",
-                "sha256:7451b5001e17837ba58945aead261ba425fdf7b4f0448777e597ddab39f4fba0"
-            ],
-            "index": "pypi",
-            "version": "==0.5.0"
-        },
-        "flask-marshmallow": {
-            "hashes": [
-                "sha256:2adcd782b5a4a6c5ae3c96701f320d8ca6997995a52b2661093c56cc3ed24754",
-                "sha256:bd01a6372cbe50e36f205cfff0fc5dab0b7b662c4c8b2c4fc06a3151b2950950"
-            ],
-            "index": "pypi",
-            "version": "==0.14.0"
         },
         "flask-migrate": {
             "hashes": [
@@ -140,7 +124,7 @@
                 "sha256:f42ad188466d946f1b3afc0a9e1a266ac8926461ee0786c06baac6bd71f8a6f3",
                 "sha256:f92731609d6625e1cc26ff5757db4d32b6b810d2a3363b0ff94ff573e5901f6f"
             ],
-            "markers": "python_version >= '3'",
+            "markers": "python_version >= '2.7' and python_version not in '3.0, 3.1, 3.2, 3.3, 3.4'",
             "version": "==1.1.0"
         },
         "itsdangerous": {
@@ -212,16 +196,8 @@
                 "sha256:8050475b70470cc58f4441ee92375db611792ba39ca1ad41d39cad193ea9e040",
                 "sha256:b45cde981d1835145257b4a3c5cb7b80786dcf5f50dd2990749a50c16cb48e01"
             ],
-            "markers": "python_version >= '3.5'",
-            "version": "==3.12.1"
-        },
-        "marshmallow-sqlalchemy": {
-            "hashes": [
-                "sha256:4cef3d7f275978e2fb502c8693365a5ebe86921d9d021ad2e7401a2e2e3f97a3",
-                "sha256:cc335437f74427e47a2fdd68f1c2836c60643a001a1fea602ebd4114ce3f75b0"
-            ],
             "index": "pypi",
-            "version": "==0.26.0"
+            "version": "==3.12.1"
         },
         "psycopg2-binary": {
             "hashes": [

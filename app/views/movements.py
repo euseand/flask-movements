@@ -20,7 +20,7 @@ movements_schema = MoneyMovementSchema(many=True)
 
 @movement_blp.route('/<movement_id>')
 class Movement(MethodView):
-
+    """Api view class for single Money Movement object operations"""
     @staticmethod
     @movement_blp.response(200, SingleOutputSchema)
     def get(movement_id):
@@ -68,7 +68,7 @@ class Movement(MethodView):
 
 @movements_blp.route('/')
 class MovementsList(MethodView):
-
+    """Api view class for a list of Money Movement objects operations"""
     @staticmethod
     @movements_blp.response(200, ListOutputSchema)
     def get():

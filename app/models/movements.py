@@ -7,7 +7,7 @@ from app import db
 
 
 class MoneyMovementModel(db.Model):
-    """Money Movement model class"""
+    """Money Movement model class made for storing objects in database"""
     __tablename__ = 'movements'
 
     movement_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
