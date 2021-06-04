@@ -8,7 +8,7 @@ from app import db
 
 class MoneyMovementModel(db.Model):
     """Money Movement model class"""
-    __tablename__ = 'money_movement'
+    __tablename__ = 'movements'
 
     movement_id = db.Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
     modified_date = db.Column(db.Date, default=datetime.datetime.today)

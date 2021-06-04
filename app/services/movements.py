@@ -1,9 +1,9 @@
 from app import db
-from app.models.movement import MoneyMovementModel
-from app.exceptions.movement import MovementObjectNotFound
+from app.models.movements import MoneyMovementModel
+from app.exceptions.movements import MovementObjectNotFound
 
 
-class MoneyMovementService:
+class MoneyMovementsService:
 
     @staticmethod
     def get_all():

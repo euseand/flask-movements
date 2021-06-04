@@ -14,7 +14,6 @@ class MoneyMovementSchema(Schema):
         fields = ('movement_id', 'modified_date', 'amount', 'originator_person', 'receiver_person', 'note')
 
 
-
 class SingleOutputSchema(Schema):
 
     movement = fields.Nested(MoneyMovementSchema)
