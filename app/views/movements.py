@@ -2,7 +2,7 @@ from flask import jsonify
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
-from app.schemas.movements import MoneyMovementSchema, SingleOutputSchema, ListOutputSchema
+from app.schemas.movements import MoneyMovementSchema, MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
 from app.services.movements import MoneyMovementsService
 from app.exceptions.movements import MovementObjectNotFound
 
@@ -22,7 +22,7 @@ movements_schema = MoneyMovementSchema(many=True)
 class Movement(MethodView):
     """Api view class for single Money Movement object operations"""
     @staticmethod
-    @movement_blp.response(200, SingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def get(movement_id):
         """Read a single movement
 
@@ -37,9 +37,9 @@ class Movement(MethodView):
 
     @staticmethod
     @movement_blp.arguments(MoneyMovementSchema)
-    @movement_blp.response(200, SingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def put(movement_id, movement_data):
-        """Update an exissting movement
+        """Update an existing movement
 
         Update money movement with sent data.
         """
@@ -54,7 +54,7 @@ class Movement(MethodView):
     @staticmethod
     @movement_blp.response(200)
     def delete(movement_id):
-        """Delete an exisiting movement
+        """Delete an existing movement
 
         Delete money movement object.
         """
@@ -70,7 +70,7 @@ class Movement(MethodView):
 class MovementsList(MethodView):
     """Api view class for a list of Money Movement objects operations"""
     @staticmethod
-    @movements_blp.response(200, ListOutputSchema)
+    @movements_blp.response(200, MoneyMovementListOutputSchema)
     def get():
         """Read all movements
 
@@ -82,7 +82,7 @@ class MovementsList(MethodView):
 
     @staticmethod
     @movements_blp.arguments(MoneyMovementSchema)
-    @movements_blp.response(201, SingleOutputSchema)
+    @movements_blp.response(201, MoneyMovementSingleOutputSchema)
     def post(movement_data):
         """Create a new movement
 
