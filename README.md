@@ -18,4 +18,4 @@ inside of flask-movements/ dir:
 
 Start app:
 
-`bash start.sh`
+`python3 wsgi.py`
