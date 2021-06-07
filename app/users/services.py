@@ -18,7 +18,7 @@ class UserService:
         if user:
             return user
         else:
-            raise UserObjectNotFound
+            return None
 
     @staticmethod
     def get_by_username(username):
@@ -27,7 +27,7 @@ class UserService:
         if user:
             return user
         else:
-            raise UserObjectNotFound
+            return None
 
     @staticmethod
     def get_by_email(email):
@@ -36,7 +36,7 @@ class UserService:
         if user:
             return user
         else:
-            raise UserObjectNotFound
+            return None
 
     @staticmethod
     def create(data):

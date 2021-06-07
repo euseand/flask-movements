@@ -3,13 +3,10 @@ from flask_smorest import abort, Blueprint
 
 from app.users.schemas import UserSchema, UserInputSchema, UserSingleOutputSchema
 from app.users.services import UserService
-from app.users.exceptions import UserObjectNotFound
 from app.common import oauth
 
-auth_blp = Blueprint('auth', __name__, url_prefix='/auth',
-                     description='Login/password authentication')
-google_blp = Blueprint('auth/google', __name__, url_prefix='/auth/google',
-                       description='Authentication via google')
+auth_blp = Blueprint('auth', __name__, url_prefix='/auth', description='Authentication via login/password')
+google_blp = Blueprint('auth/google', __name__, url_prefix='/auth/google', description='Authentication via google')
 
 user_dao = UserService()
 
@@ -28,21 +25,20 @@ def login(user_data):
 
     Login with email/password.
     """
-    try:
-        user = user_dao.get_by_email(user_data.get('email'))
-        if user and user.check_password(user_data.get('password')):
+    user = user_dao.get_by_email(user_data.get('email'))
+    if user:
+        if user.check_password(user_data.get('password')):
             session['user'] = user_schema.dump(user)
-            print(session.get('user'))
             return {'message': 'Logged in successfully.'}, 200
         else:
             abort(401, message='Wrong password for this email.')
-    except UserObjectNotFound:
+    else:
         abort(404, message='User with this email does not exist.')
 
 
+@auth_blp.route('/signup', methods=['POST'])
 @auth_blp.arguments(UserSchema)
 @auth_blp.response(201, UserSingleOutputSchema)
-@auth_blp.route('/signup', methods=['POST'])
 def signup(user_data):
     """Sign up as a new user
 
@@ -62,6 +58,7 @@ def signup(user_data):
 
 
 @auth_blp.route('/logout', methods=['GET'])
+@auth_blp.response(200)
 def logout():
     """Logout
 
@@ -82,7 +79,8 @@ def login():
     return google.authorize_redirect(redirect_uri)
 
 
-@google_blp.route('/callback', methods=[])
+@google_blp.route('/callback', methods=['GET'])
+@auth_blp.response(200)
 def callback():
     """Function to claim user info from google oauth2
 
