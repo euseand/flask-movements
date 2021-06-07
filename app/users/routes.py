@@ -1,7 +1,7 @@
 from flask import jsonify, url_for, session
 from flask_smorest import abort, Blueprint
 
-from app.users.schemas import UserSchema, UserSingleOutputSchema
+from app.users.schemas import UserSchema, UserInputSchema, UserSingleOutputSchema
 from app.users.services import UserService
 from app.users.exceptions import UserObjectNotFound
 from app.common import oauth
@@ -21,7 +21,7 @@ google = oauth.google
 
 # Basic login/password auth
 @auth_blp.route('/login', methods=['POST'])
-@auth_blp.arguments(UserSchema(exclude=('username',)))
+@auth_blp.arguments(UserInputSchema)
 @auth_blp.response(200)
 def login(user_data):
     """Login via login/password
@@ -32,6 +32,7 @@ def login(user_data):
         user = user_dao.get_by_email(user_data.get('email'))
         if user and user.check_password(user_data.get('password')):
             session['user'] = user_schema.dump(user)
+            print(session.get('user'))
             return {'message': 'Logged in successfully.'}, 200
         else:
             abort(401, message='Wrong password for this email.')

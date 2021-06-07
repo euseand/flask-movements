@@ -2,7 +2,7 @@ from flask import jsonify, session
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
-from app.movements.schemas import MoneyMovementSchema
+from app.movements.schemas import MoneyMovementSchema, MoneyMovementInputSchema
 from app.movements.schemas import MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
 from app.movements.services import MoneyMovementsService
 from app.movements.exceptions import MovementObjectNotFound
@@ -36,7 +36,7 @@ class Movement(MethodView):
             abort(404, message='Movement not found.')
 
     @staticmethod
-    @movement_blp.arguments(MoneyMovementSchema)
+    @movement_blp.arguments(MoneyMovementInputSchema)
     @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def put(movement_id, movement_data):
         """Update an existing movement
@@ -84,7 +84,7 @@ class MovementsList(MethodView):
             abort(401, 'You have to be authorized to do this')
 
     @staticmethod
-    @movements_blp.arguments(MoneyMovementSchema)
+    @movements_blp.arguments(MoneyMovementInputSchema)
     @movements_blp.response(201, MoneyMovementSingleOutputSchema)
     def post(movement_data):
         """Create a new movement

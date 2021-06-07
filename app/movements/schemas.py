@@ -14,6 +14,13 @@ class MoneyMovementSchema(Schema):
         fields = ('movement_id', 'modified_date', 'amount', 'originator_person', 'receiver_person', 'note',)
 
 
+class MoneyMovementInputSchema(MoneyMovementSchema):
+    """Money Movement schema class made for filling new object fields"""
+
+    class Meta:
+        fields = ('amount', 'originator_person', 'receiver_person', 'note',)
+
+
 class MoneyMovementSingleOutputSchema(Schema):
     """Single Money Movement object output class made for enveloping response"""
     movement = fields.Nested(MoneyMovementSchema)

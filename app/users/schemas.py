@@ -13,6 +13,12 @@ class UserSchema(Schema):
         fields = ('user_id', 'username', 'email', 'password', 'date_joined',)
 
 
+class UserInputSchema(UserSchema):
+    """User schema class made for logging in via login/password"""
+    class Meta:
+        fields = ('email', 'password')
+
+
 class UserSingleOutputSchema(Schema):
     """Single User object output class made for enveloping response"""
     user = fields.Nested(UserSchema)
