@@ -7,11 +7,19 @@ def create_app():
 
     with app.app_context():
 
-        from app.common import api, db, migrate
+        from app.common import api, db, migrate, oauth
         api.init_app(app)
         db.init_app(app)
         migrate.init_app(app, db)
-
+        oauth.init_app(app)
+        oauth.register(
+            name='google',
+            server_metadata_url=app.config['GOOGLE_CONF_URL'],
+            client_kwargs={
+                'scope': 'openid email profile'
+            }
+        )
+        
         from app.movements.models import MoneyMovementModel
         from app.movements.routes import movement_blp, movements_blp
 
@@ -19,9 +27,10 @@ def create_app():
         api.register_blueprint(movements_blp)
 
         from app.users.models import UserModel
-        from app.users.routes import user_blp, users_blp
+        from app.users.routes import user_blp, users_blp, auth_blp
         
         api.register_blueprint(user_blp)
         api.register_blueprint(users_blp)
+        api.register_blueprint(auth_blp)
 
     return app

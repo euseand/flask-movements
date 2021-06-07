@@ -12,6 +12,9 @@ marshmallow = "*"
 sqlalchemy-utils = "*"
 psycopg2-binary = "*"
 flask-login = "*"
+authlib = "*"
+python3-pip-autoremove = "*"
+requests = "*"
 
 [dev-packages]
 

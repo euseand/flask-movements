@@ -1,5 +1,6 @@
 from os import environ, path
 from dotenv import load_dotenv
+from datetime import timedelta
 
 
 basedir = path.abspath(path.dirname(__file__))
@@ -11,6 +12,7 @@ class Config:
     FLASK_APP = environ.get('FLASK_APP')
     FLASK_ENV = environ.get('FLASK_ENV')
     SECRET_KEY = environ.get('SECRET_KEY')
+    PERMANENT_SESSION_LIFETIME = timedelta(days=7)
     CSRF_ENABLED = True
 
     # DB config
@@ -30,3 +32,7 @@ class Config:
     OPENAPI_RAPIDOC_PATH = environ.get('OPENAPI_RAPIDOC_PATH')
     OPENAPI_RAPIDOC_URL = environ.get('OPENAPI_RAPIDOC_URL')
 
+    # OAUTH config
+    GOOGLE_CLIENT_ID = environ.get('GOOGLE_CLIENT_ID')
+    GOOGLE_CLIENT_SECRET = environ.get('GOOGLE_CLIENT_SECRET')
+    GOOGLE_CONF_URL = environ.get('GOOGLE_CONF_URL')

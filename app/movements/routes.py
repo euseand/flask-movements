@@ -39,7 +39,7 @@ class Movement(MethodView):
     @movement_blp.arguments(MoneyMovementSchema)
     @movement_blp.response(200, MoneyMovementSingleOutputSchema)
     def put(movement_id, movement_data):
-        """Update an exissting movement
+        """Update an existing movement
 
         Update money movement with sent data.
         """
@@ -54,7 +54,7 @@ class Movement(MethodView):
     @staticmethod
     @movement_blp.response(200)
     def delete(movement_id):
-        """Delete an exisiting movement
+        """Delete an existing movement
 
         Delete money movement object.
         """
