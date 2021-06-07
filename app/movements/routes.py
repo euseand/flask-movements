@@ -3,7 +3,7 @@ from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
 from app.movements.schemas import MoneyMovementSchema, MoneyMovementInputSchema
-from app.movements.schemas import MoneyMovementSingleOutputSchema, MoneyMovementListOutputSchema
+from app.movements.schemas import MoneyMovementOutputSchema, MoneyMovementListOutputSchema
 from app.movements.services import MoneyMovementsService
 from app.movements.exceptions import MovementObjectNotFound
 
@@ -22,7 +22,7 @@ movements_schema = MoneyMovementSchema(many=True)
 class Movement(MethodView):
     """Api view class for single Money Movement object operations"""
     @staticmethod
-    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementOutputSchema)
     def get(movement_id):
         """Read a single movement
 
@@ -37,7 +37,7 @@ class Movement(MethodView):
 
     @staticmethod
     @movement_blp.arguments(MoneyMovementInputSchema)
-    @movement_blp.response(200, MoneyMovementSingleOutputSchema)
+    @movement_blp.response(200, MoneyMovementOutputSchema)
     def put(movement_id, movement_data):
         """Update an existing movement
 
@@ -85,7 +85,7 @@ class MovementsList(MethodView):
 
     @staticmethod
     @movements_blp.arguments(MoneyMovementInputSchema)
-    @movements_blp.response(201, MoneyMovementSingleOutputSchema)
+    @movements_blp.response(201, MoneyMovementOutputSchema)
     def post(movement_data):
         """Create a new movement
 

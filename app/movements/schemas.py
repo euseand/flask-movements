@@ -21,7 +21,7 @@ class MoneyMovementInputSchema(MoneyMovementSchema):
         fields = ('amount', 'originator_person', 'receiver_person', 'note',)
 
 
-class MoneyMovementSingleOutputSchema(Schema):
+class MoneyMovementOutputSchema(Schema):
     """Single Money Movement object output class made for enveloping response"""
     movement = fields.Nested(MoneyMovementSchema)
 
