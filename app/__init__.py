@@ -27,10 +27,9 @@ def create_app():
         api.register_blueprint(movements_blp)
 
         from app.users.models import UserModel
-        from app.users.routes import user_blp, users_blp, auth_blp
-        
-        api.register_blueprint(user_blp)
-        api.register_blueprint(users_blp)
+        from app.users.routes import auth_blp, google_blp
+
         api.register_blueprint(auth_blp)
+        api.register_blueprint(google_blp)
 
     return app

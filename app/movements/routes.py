@@ -1,4 +1,4 @@
-from flask import jsonify
+from flask import jsonify, session
 from flask.views import MethodView
 from flask_smorest import abort, Blueprint
 
@@ -76,9 +76,12 @@ class MovementsList(MethodView):
 
         Return all money movements objects.
         """
-        movements = movement_dao.get_all()
-        movements_json = movements_schema.dump(movements)
-        return jsonify({'movements': movements_json}), 200
+        if session.get('user'):
+            movements = movement_dao.get_all()
+            movements_json = movements_schema.dump(movements)
+            return jsonify({'movements': movements_json}), 200
+        else:
+            abort(401, 'You have to be authorized to do this')
 
     @staticmethod
     @movements_blp.arguments(MoneyMovementSchema)
@@ -88,6 +91,9 @@ class MovementsList(MethodView):
 
         Add a new money movement object.
         """
-        movement = movement_dao.create(movement_data)
-        movement_json = movement_schema.dump(movement)
-        return jsonify({'movement': movement_json}), 201
+        if session.get('user'):
+            movement = movement_dao.create(movement_data)
+            movement_json = movement_schema.dump(movement)
+            return jsonify({'movement': movement_json}), 201
+        else:
+            abort(401, 'You have to be authorized to do this')
