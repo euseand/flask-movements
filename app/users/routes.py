@@ -4,7 +4,8 @@ from flask_smorest import abort, Blueprint
 
 from app.users.schemas import UserSchema, UserSingleOutputSchema, UserListOutputSchema
 from app.users.services import UserService
-from app.users.exceptions import UserObjectNotFound
+from app.users.exceptions import UserObjectNotFound, UserObjectAlreadyExists
+
 
 user_blp = Blueprint('user', __name__, url_prefix='/users',
                      description='All operations for a single user object')
@@ -59,6 +60,18 @@ class UsersList(MethodView):
 
         Add a new user object.
         """
+        try:
+            user_dao.get_by_email(user_data.get('email'))
+        except UserObjectAlreadyExists:
+            abort(400, message='User with this email address already exists.')
+        except UserObjectNotFound:
+            pass
+        try:
+            user_dao.get_by_username(user_data.get('username'))
+        except UserObjectAlreadyExists:
+            abort(400, message='User with this username already exists.')
+        except UserObjectNotFound:
+            pass
         user = user_dao.create(user_data)
         user_json = user_schema.dump(user)
         return jsonify({'user': user_json}), 201

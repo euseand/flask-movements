@@ -1,5 +1,5 @@
 from app.users.models import db, UserModel
-from app.users.exceptions import UserObjectNotFound
+from app.users.exceptions import UserObjectNotFound, UserObjectAlreadyExists
 
 
 class UserService:
@@ -25,7 +25,7 @@ class UserService:
         """Read a single User object from database by username"""
         user = UserModel.query.filter_by(username=username).first()
         if user:
-            return user
+            raise UserObjectAlreadyExists
         else:
             raise UserObjectNotFound
 
@@ -34,7 +34,7 @@ class UserService:
         """Read a single User object from database by email"""
         user = UserModel.query.filter_by(email=email).first()
         if user:
-            return user
+            raise UserObjectAlreadyExists
         else:
             raise UserObjectNotFound
 
