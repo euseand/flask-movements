@@ -7,5 +7,3 @@ api = Api()
 db = SQLAlchemy()
 migrate = Migrate()
 oauth = OAuth()
-
-

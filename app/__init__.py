@@ -19,7 +19,7 @@ def create_app():
                 'scope': 'openid email profile'
             }
         )
-        
+
         from app.movements.models import MoneyMovementModel
         from app.movements.routes import movement_blp, movements_blp
 
