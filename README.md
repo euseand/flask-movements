@@ -13,14 +13,14 @@ postgres=# GRANT ALL PRIVILEGES ON DATABASE money_movements TO <username>;
 # Inside of flask-movements/ dir:
 
 ```
-mkdir .venv
-pipenv install
-pipenv shell
-bash db.sh
+$ mkdir .venv
+$ pipenv install
+$ pipenv shell
+$ bash db.sh
 ```
 
 # Start app:
 
 ```
-bash start.sh
+$ bash start.sh
 ```
