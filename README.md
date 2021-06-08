@@ -1,7 +1,7 @@
-## flask-movements
+# flask-movements
 flask based money movements app
 
-# DB setup:
+## DB setup:
 
 ```
 $ psql -U postgres
@@ -10,7 +10,7 @@ postgres=# CREATE DATABASE money_movements OWNER <username>;
 postgres=# GRANT ALL PRIVILEGES ON DATABASE money_movements TO <username>;
 ```
 
-# Inside of flask-movements/ dir:
+## Inside of flask-movements/ dir:
 
 ```
 $ mkdir .venv
@@ -19,7 +19,7 @@ $ pipenv shell
 $ bash db.sh
 ```
 
-# Start app:
+## Start app:
 
 ```
 $ bash start.sh
