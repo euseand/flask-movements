@@ -28,12 +28,15 @@ class Movement(MethodView):
 
         Return single money movements object.
         """
-        try:
-            movement = movement_dao.get_by_id(movement_id)
-            movement_json = movement_schema.dump(movement)
-            return jsonify({'movement': movement_json}), 200
-        except MovementObjectNotFound:
-            abort(404, message='Movement not found.')
+        if session.get('user'):
+            try:
+                movement = movement_dao.get_by_id(movement_id)
+                movement_json = movement_schema.dump(movement)
+                return jsonify({'movement': movement_json}), 200
+            except MovementObjectNotFound:
+                abort(404, message='Movement not found.')
+        else:
+            abort(401, message='You have to be authorized to do this')
 
     @staticmethod
     @movement_blp.arguments(MoneyMovementInputSchema)
@@ -43,13 +46,16 @@ class Movement(MethodView):
 
         Update money movement with sent data.
         """
-        try:
-            movement = movement_dao.get_by_id(movement_id)
-            movement_dao.update(movement_id, movement_data)
-            movement_json = movement_schema.dump(movement)
-            return jsonify({'movement': movement_json}), 200
-        except MovementObjectNotFound:
-            abort(404, message='Movement not found.')
+        if session.get('user'):
+            try:
+                movement = movement_dao.get_by_id(movement_id)
+                movement_dao.update(movement_id, movement_data)
+                movement_json = movement_schema.dump(movement)
+                return jsonify({'movement': movement_json}), 200
+            except MovementObjectNotFound:
+                abort(404, message='Movement not found.')
+        else:
+            abort(401, message='You have to be authorized to do this')
 
     @staticmethod
     @movement_blp.response(200)
@@ -58,12 +64,15 @@ class Movement(MethodView):
 
         Delete money movement object.
         """
-        try:
-            movement = movement_dao.get_by_id(movement_id)
-            movement_dao.delete(movement_id)
-            return {'message': 'Movement deleted successfully'}, 200
-        except MovementObjectNotFound:
-            abort(404, message='Movement not found')
+        if session.get('user'):
+            try:
+                movement = movement_dao.get_by_id(movement_id)
+                movement_dao.delete(movement_id)
+                return {'message': 'Movement deleted successfully'}, 200
+            except MovementObjectNotFound:
+                abort(404, message='Movement not found')
+        else:
+            abort(401, message='You have to be authorized to do this')
 
 
 @movements_blp.route('/')
@@ -81,7 +90,7 @@ class MovementsList(MethodView):
             movements_json = movements_schema.dump(movements)
             return jsonify({'movements': movements_json}), 200
         else:
-            abort(401, 'You have to be authorized to do this')
+            abort(401, message='You have to be authorized to do this')
 
     @staticmethod
     @movements_blp.arguments(MoneyMovementInputSchema)
@@ -96,4 +105,4 @@ class MovementsList(MethodView):
             movement_json = movement_schema.dump(movement)
             return jsonify({'movement': movement_json}), 201
         else:
-            abort(401, 'You have to be authorized to do this')
+            abort(401, message='You have to be authorized to do this')
