@@ -17,7 +17,7 @@ class MoneyMovementsService:
         if movement:
             return movement
         else:
-            raise MovementObjectNotFound
+            return None
 
     @staticmethod
     def create(data):
@@ -35,7 +35,7 @@ class MoneyMovementsService:
             movement.update(data)
             db.session.commit()
         else:
-            raise MovementObjectNotFound
+            return None
 
     @staticmethod
     def delete(movement_id):
@@ -45,4 +45,4 @@ class MoneyMovementsService:
             db.session.delete(movement)
             db.session.commit()
         else:
-            raise MovementObjectNotFound
+            return None

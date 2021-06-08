@@ -1,5 +1,4 @@
 from app.users.models import db, UserModel
-from app.users.exceptions import UserObjectNotFound
 
 
 class UserService:
